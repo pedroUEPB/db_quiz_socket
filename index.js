@@ -1,8 +1,7 @@
 const io = require("socket.io")(process.env.PORT || 5001, {
-    allowRequest: (req, callback) => {
-        const noOriginHeader = req.headers.origin === undefined;
-        callback(null, noOriginHeader);
-      }
+    cors: {
+        origin: '*',
+    }
 });
 
 let users = [];
