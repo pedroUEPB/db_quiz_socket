@@ -1,7 +1,8 @@
 const io = require("socket.io")(process.env.PORT || 5001, {
-    cors: {
-        origin: "http://screeningprogramming.com"
-    }
+    allowRequest: (req, callback) => {
+        const noOriginHeader = req.headers.origin === undefined;
+        callback(null, noOriginHeader);
+      }
 });
 
 let users = [];
@@ -32,6 +33,7 @@ io.on("connection", (socket) => {
 
     //send and get messages
     socket.on("sendNotification", ({senderId, receiverId}) => {
+        const user = getUser(receiverId);
         if(user){
             io.to(user.socketId).emit("getNotification", {
                 senderId
