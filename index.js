@@ -38,6 +38,7 @@ io.on("connection", (socket) => {
                 senderId
             })
         }
+        console.log(user);
     });
 
     //when disconnect
