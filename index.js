@@ -33,12 +33,13 @@ io.on("connection", (socket) => {
     //send and get messages
     socket.on("sendNotification", ({senderId, receiverId}) => {
         const user = getUser(receiverId);
-        if(user?.id != null){
+        if(user?.userId != null){
             console.log("sending...");
             io.to(user.socketId).emit("getNotification", {
                 senderId
             })
         }
+        console.log(user)
     });
 
     //when disconnect
